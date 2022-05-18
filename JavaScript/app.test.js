@@ -29,6 +29,14 @@ test('three digit number not divisible by 100 should return the correct string',
     expect(numToString(431)).toBe('four hundred thirty-one');
 });
 
+test('four digit number divisible by 100 should return the correct string', () => {
+    expect(numToString(2000)).toBe('two thousand');
+});
+
+test('four digit number not divisible by 100 should return the correct string', () => {
+    expect(numToString(9876)).toBe('ninety-eight hundred seventy-six');
+});
+
 test('six digit number divisible by 1000 should return the correct string', () => {
     expect(numToString(400000)).toBe('four hundred thousand');
 });

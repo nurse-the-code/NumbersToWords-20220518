@@ -46,29 +46,14 @@ function numToString(num) {
     } else if (num < 100) {
         let tens = Math.floor(num / 10) * 10;
         return `${numToString(tens)}-${numToString(num % 10)}`
-    } else if (num < 1000) {
+    } else if (num < 10000 && num % 1000 !== 0) {
         let hundreds = Math.floor(num / 100);
         let string = `${numToString(hundreds)} hundred`;
         if (num % 100 !== 0) {
             string += ` ${numToString(num % 100)}`;
         }
         return string;
-    } /*else if (num < 1000000) {
-        let thousands = Math.floor(num / 1000);
-        let string = `${numToString(thousands)} thousand`;
-        if (num % 1000 !== 0) {
-            string += ` ${numToString(num % 1000)}`;
-        }
-        return string;
-    } else if (num < 1000000000) {
-        let millions = Math.floor(num / 1000000);
-        let string = `${numToString(millions)} million`;
-        if (num % 1000000 !== 0) {
-            string += ` ${numToString(num % 1000000)}`;
-        }
-        return string;
-    }*/
-    else {
+    } else {
         let order = Math.floor(Math.log10(num) / 3 - 1);
         let base = Math.pow(10, 3*(order + 1));
 
