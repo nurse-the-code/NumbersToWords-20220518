@@ -33,6 +33,10 @@ test('four digit number divisible by 100 should return the correct string', () =
     expect(numToString(2000)).toBe('two thousand');
 });
 
+test('four digit number stated in thousands should return the correct string', () => {
+    expect(numToString(2001)).toBe('two thousand one');
+});
+
 test('four digit number not divisible by 100 should return the correct string', () => {
     expect(numToString(9876)).toBe('ninety-eight hundred seventy-six');
 });

@@ -58,9 +58,9 @@ function numToString(num) {
         let base = Math.pow(10, 3*(order));
 
         // Three-digit numbers and four-digit numbers that
-        // aren't multiples of 1000 need slightly different
+        // should be stated in hundreds need slightly different
         // handling.
-        if (num < 10000 && num % 1000 !== 0) {
+        if (num < 10000 && num % 1000 >= 100) {
             order = 0;
             base = 100;
         }
