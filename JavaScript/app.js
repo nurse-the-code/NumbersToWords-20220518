@@ -37,7 +37,7 @@ const numLookup = {
 }
 
 const orders = [
-    "thousand", "million", "billion", "trillion"
+    "hundred", "thousand", "million", "billion", "trillion"
 ]
 
 function numToString(num) {
@@ -46,16 +46,13 @@ function numToString(num) {
     } else if (num < 100) {
         let tens = Math.floor(num / 10) * 10;
         return `${numToString(tens)}-${numToString(num % 10)}`
-    } else if (num < 10000 && num % 1000 !== 0) {
-        let hundreds = Math.floor(num / 100);
-        let string = `${numToString(hundreds)} hundred`;
-        if (num % 100 !== 0) {
-            string += ` ${numToString(num % 100)}`;
-        }
-        return string;
     } else {
-        let order = Math.floor(Math.log10(num) / 3 - 1);
-        let base = Math.pow(10, 3*(order + 1));
+        let order = Math.floor(Math.log10(num) / 3);
+        let base = Math.pow(10, 3*(order));
+        if (num < 10000 && num % 1000 !== 0) {
+            order = 0;
+            base = 100;
+        }
 
         let aboveBase = Math.floor(num / base);
         let string = `${numToString(aboveBase)} ${orders[order]}`;
