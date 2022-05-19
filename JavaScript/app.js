@@ -46,9 +46,9 @@ function numToString(num) {
         return numLookup[num];
     } else if (num < 100) {
         // Cover two-digit numbers that aren't multiples of 10
-        // with simple recursion (but could also be a lookup)
+        // with two lookups
         let tens = Math.floor(num / 10) * 10;
-        return `${numToString(tens)}-${numToString(num % 10)}`
+        return `${numLookup[tens]}-${numLookup[num % 10]}`
     } else {
         // Anything larger is composed of the other cases.
         //
