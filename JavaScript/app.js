@@ -37,26 +37,35 @@ const numLookup = {
 }
 
 const orders = [
-    "thousand", "million", "billion", "trillion"
+    "hundred", "thousand", "million", "billion", "trillion"
 ]
 
 function numToString(num) {
     if (num in numLookup) {
+        // Cover 0-19 and multiples of 10 up to 90 with a straight lookup
         return numLookup[num];
     } else if (num < 100) {
+        // Cover two-digit numbers that aren't multiples of 10
+        // with two lookups
         let tens = Math.floor(num / 10) * 10;
-        return `${numToString(tens)}-${numToString(num % 10)}`
-    } else if (num < 10000 && num % 1000 !== 0) {
-        let hundreds = Math.floor(num / 100);
-        let string = `${numToString(hundreds)} hundred`;
-        if (num % 100 !== 0) {
-            string += ` ${numToString(num % 100)}`;
-        }
-        return string;
+        return `${numLookup[tens]}-${numLookup[num % 10]}`
     } else {
-        let order = Math.floor(Math.log10(num) / 3 - 1);
-        let base = Math.pow(10, 3*(order + 1));
+        // Anything larger is composed of the other cases.
+        //
+        // Find out what our biggest named place value is...
+        let order = Math.floor(Math.log10(num) / 3);
+        // ...and the number corresponding to that place value
+        let base = Math.pow(10, 3*(order));
 
+        // Three-digit numbers and four-digit numbers that
+        // should be stated in hundreds need slightly different
+        // handling.
+        if (num < 10000 && num % 1000 >= 100) {
+            order = 0;
+            base = 100;
+        }
+
+        // Now build the number with recursive calls.
         let aboveBase = Math.floor(num / base);
         let string = `${numToString(aboveBase)} ${orders[order]}`;
         if (num % base !== 0) {
